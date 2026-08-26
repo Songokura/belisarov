@@ -856,6 +856,13 @@ html.shotmode .marquee-track { animation: none !important; }
   .rev-score { grid-template-columns: auto 1fr; }
 }
 
+/* с полным именем «Талгатжан Белисаров» строка бренда перестаёт помещаться в шапку
+   уже на 375px — бургер уезжает за край. Ниже 385px оставляем только знак «ТБ»:
+   кнопка звонка и переключатель языка важнее подписи, имя всё равно стоит в первом экране. */
+@media (max-width: 385px) {
+  .brand-txt { display: none; }
+}
+
 @media (max-width: 400px) {
   .steps { grid-template-columns: 1fr; }
   .hero h1 { font-size: 31px; }
