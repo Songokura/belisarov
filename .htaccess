@@ -1,0 +1,45 @@
+# ═══════════════════════════════════════════════════════════
+#  belisarov.kz — статический лэндинг на шаред-хостинге (Apache)
+#  Заливается в public_html вместе с остальными файлами.
+#  На GitHub Pages файл игнорируется — вреда нет.
+# ═══════════════════════════════════════════════════════════
+
+Options -Indexes
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+AddType image/webp .webp
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # www → без www: канонический адрес сайта https://belisarov.kz/
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # ─── ВКЛЮЧИТЬ ТОЛЬКО ПОСЛЕ ВЫПУСКА SSL-СЕРТИФИКАТА ───
+  # До выпуска Let's Encrypt этот редирект уводит посетителя
+  # на https без сертификата — браузер покажет предупреждение.
+  # Убрать символы "#" в трёх строках ниже, когда SSL заработает.
+  # RewriteCond %{HTTPS} !=on
+  # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    application/javascript application/xml image/svg+xml
+</IfModule>
+
+# Кэш: css/js versioned через ?v=, поэтому их можно держать год.
+# HTML — без кэша, иначе правки не долетают до клиента.
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  <FilesMatch "\.(css|js|webp|png|svg|ico|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+ErrorDocument 404 /index.html
