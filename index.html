@@ -8,6 +8,49 @@
 <link rel="canonical" href="https://belisarov.kz/">
 <meta name="theme-color" content="#171c22">
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18422359267"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18422359267');
+
+  /* Конверсия «Интерактивные номера телефонов» */
+  function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') { window.location = url; }
+    };
+    gtag('event', 'conversion', {
+      'send_to': 'AW-18422359267/md8iCNqg-OscEOPJu9BE',
+      'value': 1.0,
+      'currency': 'USD',
+      'event_callback': callback
+    });
+    return false;
+  }
+
+  /* Конверсия «Отправка формы для потенциальных клиентов» */
+  function gtag_report_form() {
+    gtag('event', 'conversion', {
+      'send_to': 'AW-18422359267/CRPkCPK59-scEOPJu9BE',
+      'value': 1.0,
+      'currency': 'USD'
+    });
+    return true;
+  }
+
+  /* Конверсия «Контакт» - клик по WhatsApp */
+  function gtag_report_contact() {
+    gtag('event', 'conversion', {
+      'send_to': 'AW-18422359267/ckmECIrY7OscEOPJu9BE',
+      'value': 1.0,
+      'currency': 'USD'
+    });
+    return true;
+  }
+</script>
+
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://belisarov.kz/">
 <meta property="og:title" content="Талгатжан Белисаров — юридическая помощь в Костанае">
@@ -28,7 +71,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260828-1">
+<link rel="stylesheet" href="styles.css?v=20260901-1">
 
 <script type="application/ld+json">
 {
@@ -546,6 +589,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=20260828-1" defer></script>
+<script src="script.js?v=20260901-1" defer></script>
 </body>
 </html>

@@ -238,11 +238,23 @@
     if (wa) {
       e.preventDefault();
       window.open("https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(wa), "_blank", "noopener");
-      /* сюда позже добавится gtag('event', 'whatsapp_click', …) */
+      /* Google Ads: конверсия «Контакт» */
+      if (typeof gtag_report_contact === "function") { gtag_report_contact(); }
+      return;
+    }
+    /* WhatsApp-ссылки без data-wa (контакты, футер) - тоже конверсия «Контакт» */
+    if (a.href && a.href.indexOf("wa.me") > -1) {
+      if (typeof gtag_report_contact === "function") { gtag_report_contact(); }
+      return;
+    }
+    if (a.href && a.href.indexOf("mailto:") === 0) {
+      if (typeof gtag_report_contact === "function") { gtag_report_contact(); }
       return;
     }
     if (a.href && a.href.indexOf("tel:") === 0) {
-      /* сюда позже добавится gtag('event', 'phone_click', …) */
+      /* Google Ads: конверсия «Интерактивные номера телефонов».
+         Без redirect-колбэка: tel: не выгружает страницу, ссылка отработает сама. */
+      if (typeof gtag_report_conversion === "function") { gtag_report_conversion(); }
     }
   });
 
@@ -338,7 +350,8 @@
         ? "Сәлеметсіз бе, Талгатжан! Менің атым " + name + ". Телефон: " + phone + ". Жағдай: " + msg
         : "Здравствуйте, Талгатжан! Меня зовут " + name + ". Телефон: " + phone + ". Ситуация: " + msg;
       window.open("https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(text), "_blank", "noopener");
-      /* сюда позже добавится gtag('event', 'form_submit', …) */
+      /* Google Ads: конверсия «Отправка формы для потенциальных клиентов» */
+      if (typeof gtag_report_form === "function") { gtag_report_form(); }
       done.hidden = false;
       form.reset();
       done.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
